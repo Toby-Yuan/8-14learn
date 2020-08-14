@@ -162,11 +162,11 @@ $(function () {
         url: "/home/news    ",
         success: function(e){
             newsList = JSON.parse(e);
-            reflash();
+            refresh();
         }
     })
 
-    function reflash(){
+    function refresh(){
 
         $("#latestNews").empty();
         for (let i = 0; i < newsList.length; i++){
@@ -174,7 +174,7 @@ $(function () {
             // var liText = newsList[i].title + "[" + newsList[i].ymd + "]";
             // var liText = `<li class="list-group-item">${newsList[i].title} [${newsList[i].ymd}]<span class="pull-right"><button class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span></li>`;
             // $("#latestNews").append(liText);
-            var buttonItem = `<span class="pull-right"><button class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span>`;
+            var buttonItem = `<span class="pull-right"><button class="btn btn-primary btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span>`;
             var liText = $("<li></li>")
                 .text(newsItem.title + "[" + newsItem.ymd + "]")
                 .addClass("list-group-item")
@@ -184,7 +184,10 @@ $(function () {
         }
     }
 
-
+    $("#newItem").on("click",function () {
+        // 無法點擊旁邊關閉
+        $("#newsModal").modal({backdrop : "static"});
+    });
 
 
 
