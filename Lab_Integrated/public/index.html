@@ -191,6 +191,11 @@ $(function () {
 
     $("#okButton").on("click",function(){
         $("#newsModal").modal("hide");
+        let dataToServer = {
+            title: $("#titleTextBox").val(),
+            ymd: $("#ymdTextBox").val()
+        }
+        alert(JSON.stringify(dataToServer));
     });
 
 
