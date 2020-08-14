@@ -187,7 +187,14 @@ $(function () {
         $(".deleteItem").click(function (){
             // var index = $(this).parent().parent().index();
             var index = $(this).closest("li").index();
-            alert(index);
+            $.ajax({
+                type: "delete",
+                url: "/home/news",
+                data: newsList[index],
+                success: function(){
+                    reList();
+                }
+            });
         });
     }
 
