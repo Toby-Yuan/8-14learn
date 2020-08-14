@@ -182,6 +182,11 @@ $(function () {
             // $("#latestNews").append(liText);
             liText.appendTo("#latestNews");
         }
+
+        // 邏輯關係, 刪除按鈕的事件必須打在這裡
+        $(".deleteItem").click(function (){
+            alert("OK");
+        });
     }
 
     // 重新整理
