@@ -143,7 +143,7 @@ function showToast(heading, message) {
 <script>
 
 $(function () {
-    $("#latestNews").empty();
+    
 
     var newsList =
     [
@@ -157,19 +157,33 @@ $(function () {
     // 練習與任務:
     // 先抓虛擬資料
 
-    for (let i = 0; i < newsList.length; i++){
-        var newsItem = newsList[i];
-        // var liText = newsList[i].title + "[" + newsList[i].ymd + "]";
-        // var liText = `<li class="list-group-item">${newsList[i].title} [${newsList[i].ymd}]<span class="pull-right"><button class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span></li>`;
-        // $("#latestNews").append(liText);
-        var buttonItem = `<span class="pull-right"><button class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span>`;
-        var liText = $("<li></li>")
-            .text(newsItem.title + "[" + newsItem.ymd + "]")
-            .addClass("list-group-item")
-            .append(buttonItem);
-        // $("#latestNews").append(liText);
-        liText.appendTo("#latestNews");
+    $.ajax({
+        type: "get",
+        url: "/home/news    ",
+        success: function(e){
+            newsList = JSON.parse(e);
+            reflash();
+        }
+    })
+
+    function reflash(){
+
+        $("#latestNews").empty();
+        for (let i = 0; i < newsList.length; i++){
+            var newsItem = newsList[i];
+            // var liText = newsList[i].title + "[" + newsList[i].ymd + "]";
+            // var liText = `<li class="list-group-item">${newsList[i].title} [${newsList[i].ymd}]<span class="pull-right"><button class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span></li>`;
+            // $("#latestNews").append(liText);
+            var buttonItem = `<span class="pull-right"><button class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span>`;
+            var liText = $("<li></li>")
+                .text(newsItem.title + "[" + newsItem.ymd + "]")
+                .addClass("list-group-item")
+                .append(buttonItem);
+            // $("#latestNews").append(liText);
+            liText.appendTo("#latestNews");
+        }
     }
+
 
 
 

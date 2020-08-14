@@ -9,3 +9,5 @@
 4. node app.js  (注意password和port)
 
 5. 先用虛擬資料來模擬加入畫面
+
+6. 連接資料庫(get), 動態加入畫面
