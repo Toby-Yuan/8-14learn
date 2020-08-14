@@ -185,7 +185,8 @@ $(function () {
 
         // 邏輯關係, 刪除按鈕的事件必須打在這裡
         $(".deleteItem").click(function (){
-            alert("OK");
+            var index = $(this).parent().parent().index();
+            alert(index);
         });
     }
 
