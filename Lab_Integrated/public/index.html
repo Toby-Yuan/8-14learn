@@ -184,6 +184,18 @@ $(function () {
         }
     }
 
+    // 重新整理
+    function reList(){
+        $.ajax({
+            type: "get",
+            url: "/home/news    ",
+            success: function(e){
+                newsList = JSON.parse(e);
+                refresh();
+            }
+        })
+    }
+
     $("#newItem").on("click",function () {
         // 無法點擊旁邊關閉
         $("#newsModal").modal({backdrop : "static"});
@@ -195,7 +207,16 @@ $(function () {
             title: $("#titleTextBox").val(),
             ymd: $("#ymdTextBox").val()
         }
-        alert(JSON.stringify(dataToServer));
+        
+        $.ajax({
+            type: "POST",
+            url: "/home/news",
+            data: JSON.stringify(dataToServer),
+            contentType: "application/json",
+            success: function() {
+                reList();
+            }
+        });
     });
 
 
