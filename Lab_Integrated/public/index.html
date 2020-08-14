@@ -157,6 +157,9 @@ $(function () {
     // 練習與任務:
     // 先抓虛擬資料
 
+    //  區分新增或修改
+    var createAndUpdate = -1;
+
     $.ajax({
         type: "get",
         url: "/home/news    ",
@@ -199,6 +202,7 @@ $(function () {
 
         $(".editItem").click(function () {
             var index = $(this).closest("li").index();
+            createAndUpdate = index;
             $("#titleTextBox").val(newsList[index].title);
             $("#ymdTextBox").val(newsList[index].ymd);
             $("#newsModal").modal({backdrop:"static"});
@@ -224,20 +228,41 @@ $(function () {
 
     $("#okButton").on("click",function(){
         $("#newsModal").modal("hide");
-        let dataToServer = {
-            title: $("#titleTextBox").val(),
-            ymd: $("#ymdTextBox").val()
-        }
-        
-        $.ajax({
-            type: "POST",
-            url: "/home/news",
-            data: JSON.stringify(dataToServer),
-            contentType: "application/json",
-            success: function() {
-                reList();
+
+        // 區分新增和修改
+        if (createAndUpdate < 0){
+            let dataToServer = {
+                title: $("#titleTextBox").val(),
+                ymd: $("#ymdTextBox").val()
             }
-        });
+            
+            $.ajax({
+                type: "POST",
+                url: "/home/news",
+                data: JSON.stringify(dataToServer),
+                contentType: "application/json",
+                success: function() {
+                    reList();
+                }
+            });
+        }else{
+            let dataToServer = {
+                newsId: newsList[createAndUpdate].newsId,
+                title: $("#titleTextBox").val(),
+                ymd: $("#ymdTextBox").val()
+            }
+            $.ajax({
+                type: "put",
+                url: "/home/news",
+                data: dataToServer,
+                success: function(){
+                    reList();
+                }
+            });
+            // alert(JSON.stringify(dataToServer));
+            // alert(newsList[createAndUpdate].newsId);
+        }
+
     });
 
 
