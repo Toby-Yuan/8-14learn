@@ -199,6 +199,8 @@ $(function () {
 
         $(".editItem").click(function () {
             var index = $(this).closest("li").index();
+            $("#titleTextBox").val(newsList[index].title);
+            $("#ymdTextBox").val(newsList[index].ymd);
             $("#newsModal").modal({backdrop:"static"});
         });
     }
