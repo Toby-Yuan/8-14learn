@@ -184,7 +184,7 @@ $(function () {
         }
 
         // 邏輯關係, 刪除按鈕的事件必須打在這裡
-        $(".deleteItem").click(function (){
+        $(".deleteItem").click(function () {
             // var index = $(this).parent().parent().index();
             var index = $(this).closest("li").index();
             $.ajax({
@@ -195,6 +195,11 @@ $(function () {
                     reList();
                 }
             });
+        });
+
+        $(".editItem").click(function () {
+            var index = $(this).closest("li").index();
+            $("#newsModal").modal({backdrop:"static"});
         });
     }
 
